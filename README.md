@@ -20,7 +20,7 @@ Make sure you have **Node.js (v16+)** installed.
 1. **Clone the repository**:
 
    ```sh
-   git clone https://github.com/your-username/casino-poker-game.git
+   git clone https://github.com/Seizuree/casino-poker-game.git
    cd casino-poker-game
    ```
 
