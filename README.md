@@ -107,6 +107,52 @@ The test suite includes:
 
 ---
 
+# Sample Game Data
+
+To get a quick understanding of how the game works, here’s an example session:
+
+---
+
+### **Sample Input**
+
+```
+Welcome to Poker Game Simulator
+Enter number of players (2-8): 3
+Enter name for Player 1: Alice
+Enter name for Player 2: Bob
+Enter name for Player 3: Charlie
+```
+
+### **Sample Output**
+
+```
+Dealing cards...
+
+Hand Rankings:
+
+Alice: ♠10 ♠J ♠Q ♠K ♠A (Royal Flush)
+Bob: ♥7 ♥7 ♣7 ♦7 ♣K (Four of a Kind)
+Charlie: ♦4 ♦5 ♦6 ♦7 ♦8 (Straight Flush)
+
+Winner: Alice with ♠10 ♠J ♠Q ♠K ♠A (Royal Flush)!
+
+Play another round? (y/n):
+```
+
+---
+
+### **Try It Yourself**
+
+You can interact with the game by running:
+
+```sh
+node start.js
+```
+
+Then enter **player names and number of players** to start a game round.
+
+---
+
 ## Contributing
 
 If you'd like to contribute:
