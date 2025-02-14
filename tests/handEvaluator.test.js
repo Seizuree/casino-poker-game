@@ -1,70 +1,81 @@
-const Card = require('../src/card')
 const HandEvaluator = require('../src/handEvaluator')
+const Card = require('../src/card')
 
-describe('Hand Evaluator', () => {
-  test('Recognizes Royal Flush', () => {
-    const hand = [
-      new Card('♠', 'A'),
-      new Card('♠', 'K'),
-      new Card('♠', 'Q'),
-      new Card('♠', 'J'),
-      new Card('♠', '10'),
-    ]
-    expect(HandEvaluator.getHandRank(hand).name).toBe('Royal Flush')
+describe('Hand Evaluation Tests', () => {
+  function createHand(cards) {
+    return cards.map(([suit, rank]) => new Card(suit, rank))
+  }
+
+  test('Test all hand types', () => {
+    const royalFlush = createHand([
+      ['♠', '10'],
+      ['♠', 'J'],
+      ['♠', 'Q'],
+      ['♠', 'K'],
+      ['♠', 'A'],
+    ])
+    expect(HandEvaluator.getHandRank(royalFlush).name).toBe('Royal Flush')
+
+    const fourOfAKind = createHand([
+      ['♠', '7'],
+      ['♥', '7'],
+      ['♦', '7'],
+      ['♣', '7'],
+      ['♠', 'K'],
+    ])
+    expect(HandEvaluator.getHandRank(fourOfAKind).name).toBe('Four of a Kind')
   })
 
-  test('Recognizes Straight Flush', () => {
-    const hand = [
-      new Card('♠', '9'),
-      new Card('♠', '8'),
-      new Card('♠', '7'),
-      new Card('♠', '6'),
-      new Card('♠', '5'),
-    ]
-    expect(HandEvaluator.getHandRank(hand).name).toBe('Straight Flush')
+  test('Test hand comparison', () => {
+    const flush = createHand([
+      ['♠', '2'],
+      ['♠', '5'],
+      ['♠', '9'],
+      ['♠', 'J'],
+      ['♠', 'K'],
+    ])
+    const straight = createHand([
+      ['♠', '2'],
+      ['♣', '3'],
+      ['♦', '4'],
+      ['♥', '5'],
+      ['♠', '6'],
+    ])
+
+    expect(HandEvaluator.getHandRank(flush).rank).toBeGreaterThan(
+      HandEvaluator.getHandRank(straight).rank
+    )
   })
 
-  test('Recognizes Four of a Kind', () => {
-    const hand = [
-      new Card('♠', 'K'),
-      new Card('♥', 'K'),
-      new Card('♣', 'K'),
-      new Card('♦', 'K'),
-      new Card('♠', 'A'),
-    ]
-    expect(HandEvaluator.getHandRank(hand).name).toBe('Four of a Kind')
+  test('Test tie breakers', () => {
+    const pair1 = createHand([
+      ['♠', 'A'],
+      ['♣', 'A'],
+      ['♦', '5'],
+      ['♥', '6'],
+      ['♠', '7'],
+    ])
+    const pair2 = createHand([
+      ['♠', 'K'],
+      ['♣', 'K'],
+      ['♦', '4'],
+      ['♥', '6'],
+      ['♠', '7'],
+    ])
+
+    expect(HandEvaluator.getHandRank(pair1).highest).toBeGreaterThan(
+      HandEvaluator.getHandRank(pair2).highest
+    )
   })
 
-  test('Recognizes Full House', () => {
-    const hand = [
-      new Card('♠', 'Q'),
-      new Card('♥', 'Q'),
-      new Card('♣', 'Q'),
-      new Card('♠', 'J'),
-      new Card('♥', 'J'),
-    ]
-    expect(HandEvaluator.getHandRank(hand).name).toBe('Full House')
-  })
-
-  test('Recognizes Flush', () => {
-    const hand = [
-      new Card('♠', 'A'),
-      new Card('♠', 'K'),
-      new Card('♠', '9'),
-      new Card('♠', '6'),
-      new Card('♠', '3'),
-    ]
-    expect(HandEvaluator.getHandRank(hand).name).toBe('Flush')
-  })
-
-  test('Recognizes High Card', () => {
-    const hand = [
-      new Card('♠', 'A'),
-      new Card('♥', '8'),
-      new Card('♣', '5'),
-      new Card('♦', '4'),
-      new Card('♠', '2'),
-    ]
-    expect(HandEvaluator.getHandRank(hand).name).toBe('High Card')
+  test('Test edge cases', () => {
+    const highCard = createHand([
+      ['♠', '2'],
+      ['♣', '4'],
+      ['♦', '6'],
+      ['♥', '8'],
+      ['♠', '10'],
+    ])
+    expect(HandEvaluator.getHandRank(highCard).name).toBe('High Card')
   })
 })

@@ -4,15 +4,20 @@
   "description": "Casino Poker Game",
   "main": "index.js",
   "directories": {
-    "test": "tests"
+    "test": "__tests__"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage"
   },
   "author": "Brian",
   "license": "ISC",
   "dependencies": {
-    "jest": "^29.7.0",
     "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
