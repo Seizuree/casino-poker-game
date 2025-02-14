@@ -9,23 +9,25 @@ class Game {
   }
 
   start() {
-    this.players.forEach((player) => player.receiveHand(this.deck.dealHand(5)))
+    console.log('\nDealing cards...\n')
+    this.players.forEach((player) => {
+      player.receiveHand(this.deck.dealHand(5))
+      console.log(`${player.name}'s hand: ${player.showHand()}`)
+    })
     this.showResults()
   }
 
   showResults() {
+    console.log('\nHand Rankings:')
     const results = this.players.map((player) => {
       const evaluation = HandEvaluator.getHandRank(player.hand)
-      return { name: player.name, hand: player.showHand(), ...evaluation }
+      console.log(`${player.name}: ${evaluation.name}`)
+      return { playerName: player.name, hand: player.showHand(), ...evaluation }
     })
 
     results.sort((a, b) => b.rank - a.rank || b.highest - a.highest)
-    console.log('\nGame Results:')
-    results.forEach(({ name, hand, name: rankName }) =>
-      console.log(`${name}: ${hand} (${rankName})`)
-    )
-    console.dir(this.players.hand[0])
-    console.log(`\nWinner: ${results[0].name} with ${results[0].name}!\n`)
+
+    console.log(`\nWinner: ${results[0].playerName} with ${results[0].name}!\n`)
   }
 }
 
