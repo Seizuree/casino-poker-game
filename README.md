@@ -36,7 +36,7 @@ Make sure you have **Node.js (v16+)** installed.
 1. Run the game:
 
    ```sh
-   node start.js
+   sh start.sh
    ```
 
 2. **Follow the prompts**:
@@ -55,13 +55,7 @@ This project uses **Jest** for testing.
 ### Run All Tests
 
 ```sh
-npm test
-```
-
-### Run Tests with Coverage Report
-
-```sh
-npm test -- --coverage
+sh test.sh
 ```
 
 ---
